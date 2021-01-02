@@ -1,0 +1,25 @@
+steps:
+- name: 'python'
+  args: ['pip3','install', '-r', 'requirements.txt', '--user']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'us-east1-docker.pkg.dev/$PROJECT_ID/consec-test/hello-world:1.0', '.' ]
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args: [ '-c', "gcloud secrets versions access latest --secret=ag-tio-consec --format='get(payload.data)' | tr '_-' '/+' | base64 -d > .env" ] 
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args: [ '-c', 'grep SECRET_KEY .env | cut -f2 -d= > secret_key.txt']
+
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: [ '-c', 'docker login --username=$(grep ACCESS_KEY .env | cut -f2 -d=) --password-stdin < secret_key.txt']
+
+- name: "gcr.io/cloud-builders/docker"
+  args: ["build", "-t", "[DOCKER_USER_ID]/[IMAGE]:[TAG]", "."]
+
+  images: "gcp-repo/hello-world:latest"
+
+
