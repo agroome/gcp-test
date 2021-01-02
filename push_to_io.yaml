@@ -18,8 +18,8 @@ steps:
   args: [ '-c', 'docker login --username=$(grep ACCESS_KEY .env | cut -f2 -d=) --password-stdin < secret_key.txt']
 
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "[DOCKER_USER_ID]/[IMAGE]:[TAG]", "."]
+  args: ["build", "-t", "gcp-cicd/hello-world:latest", "."]
 
-  images: "gcp-repo/hello-world:latest"
+images: "gcp-repo/hello-world:latest"
 
 
