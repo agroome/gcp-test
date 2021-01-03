@@ -12,10 +12,9 @@ steps:
   entrypoint: 'bash'
   args: [ '-c', 'grep SECRET_KEY .env | cut -f2 -d= > secret_key.txt']
 
-- name: 'gcr.io/cloud-builders/docker'
-  # test writing output
-  entrypoint: 'bash'
-  args: ['-c', 'echo this is a build artifact > /workspace/output.txt']
+#- name: 'gcr.io/cloud-builders/docker'
+  # entrypoint: 'bash'
+  # args: ['-c', 'echo this is a build artifact > /workspace/output.txt']
 
 - name: 'gcr.io/cloud-builders/docker'
   # login to registry.cloud.tenable.com using access_key / secret_key
