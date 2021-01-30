@@ -1,5 +1,5 @@
-# gcp-test
+# gcp_cloud_build
 
-Running some CI/CD tests here with Google Cloud Build and Tenable Container Security.
+Trigger this cloud build script whenever changes are commited with a specific tag. CI/CD tests here with Google Cloud Build and Tenable Container Security.
 
 ![caution](/images/caution-dorking-around.png)
